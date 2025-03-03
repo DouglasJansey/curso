@@ -22,6 +22,7 @@ describe("CursoController", () => {
                 descricao: "Curso de teste",
             };
             (db.curso.create as jest.Mock).mockResolvedValue(cursoMock);
+            
             const curso = await CursoController.createCurso("Curso 1", "Curso de teste");
             expect(curso).toEqual(cursoMock);
             expect(db.curso.create).toHaveBeenCalledTimes(1);
