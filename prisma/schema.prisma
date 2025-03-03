@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  email    String    @unique
+  nome     String
+  idade    Int
+  aluno    Aluno?    @relation(fields: [alunoId], references: [id])
+  alunoId  String?   @unique @db.ObjectId
+  professor Professor? @relation(fields: [profId], references: [id])
+  profId   String?   @unique @db.ObjectId
+  telefones Telefone[]
+  enderecos Endereco[]
+}
+
+model Aluno {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  user       User?
+  userId     String   @unique @db.ObjectId
+  turma      Turma    @relation(fields: [turmaId], references: [id])
+  turmaId    String   @unique @db.ObjectId
+  frequencia Frequencia?
+}
+
+model Professor {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  user      User?
+  userId    String   @unique @db.ObjectId
+  password  String
+  turmas    Turma[]
+}
+
+model Turma {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  alunos     Aluno[]
+  professores Professor @relation(fields: [professorId], references: [id])
+  professorId String       @db.ObjectId  
+  curso      Curso        @relation(fields: [cursoId], references: [id])
+  cursoId    String       @db.ObjectId
+  frequencias Frequencia[]
+}
+
+model Curso {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  nome      String
+  descricao String
+  turmas    Turma[]
+}
+
+model Frequencia {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  status    String
+  aluno     Aluno   @relation(fields: [alunoId], references: [id])
+  alunoId   String  @unique @db.ObjectId
+  turma     Turma   @relation(fields: [turmaId], references: [id])
+  turmaId   String  @unique @db.ObjectId
+  createdAt DateTime @default(now())
+
+}
+
+model Telefone {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  ddd    Int
+  numero Int
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId
+}
+
+model Endereco {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  rua    String
+  numero Int
+  bairro String
+  cidade String
+  estado String
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId
+}

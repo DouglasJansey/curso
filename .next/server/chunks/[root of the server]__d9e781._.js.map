@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 55, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/Douglas%20Jansey/Documents/Projetos/curso/src/app/api/user/route.ts"],"sourcesContent":["import { NextResponse } from \"next/server\";\r\nimport UserController from \"../controler/UserController\";\r\n\r\nexport async function GET() {\r\n    return NextResponse.json({ message: \"Hello World\" }, { status: 200 });\r\n}\r\nexport async function POST(req: Request) {\r\n    const body = await req.json()\r\n    return NextResponse.json( body, { status: 200 });\r\n}\r\n"],"names":[],"mappings":";;;;AAAA;;AAGO,eAAe;IAClB,OAAO,gIAAA,CAAA,eAAY,CAAC,IAAI,CAAC;QAAE,SAAS;IAAc,GAAG;QAAE,QAAQ;IAAI;AACvE;AACO,eAAe,KAAK,GAAY;IACnC,MAAM,OAAO,MAAM,IAAI,IAAI;IAC3B,OAAO,gIAAA,CAAA,eAAY,CAAC,IAAI,CAAE,MAAM;QAAE,QAAQ;IAAI;AAClD"}},
+    {"offset": {"line": 74, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
