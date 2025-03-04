@@ -51,21 +51,4 @@ describe("TurmaController - createTurma", () => {
         })
         expect(result).toEqual(mockTurma);
     })
-    it("should add a student to a turma", async () => {
-        const turmaData = {
-            nome: "Turma 1",
-            professorId: "professor-1",
-            cursoId: "curso-1"
-        }
-        const mockTurma = {id: 'turma-1', ...turmaData};
-        (dbMock.turma.create as jest.Mock).mockResolvedValue(mockTurma as any);
-       
-    
-        (createProfessor as jest.Mock).mockResolvedValue({id: 'professor-1'});
-        (createCurso as jest.Mock).mockResolvedValue({id: 'curso-1'});
-        
-
-     
-       
-    })
 })
