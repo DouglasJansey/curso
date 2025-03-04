@@ -12,7 +12,8 @@
       "jest",
     ],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@services/*": ["src/services/*"]
     },
     "target": "ES6",
     "module": "CommonJS",

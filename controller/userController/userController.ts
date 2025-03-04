@@ -1,18 +1,16 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { db } from '../../repository/prisma';
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt';
-import { createProfessor } from 'services/professorService';
-import { createTelefone } from 'services/telefoneService';
-import { createEndereco } from 'services/enderecoService';
-import { createAluno } from 'services/alunoService';
+import { createProfessor } from '../../services/professorService';
+import { createTelefone } from '../../services/telefoneService';
+import { createEndereco } from '../../services/enderecoService';
+import { createAluno } from '../../services/alunoService';
 
 type DataType = {
     user: {
         nome: string;
         email: string;
         idade: number;
-        password: string;
+        password?: string;
         endereco: {
             rua: string;
             numero: number;
@@ -36,6 +34,8 @@ export default class userConroller {
     async createUser({ user, role }: { user: DataType['user'], role: 'professor' | 'aluno' }, turmaId?: string) {
         const { password } = user
 
+        
+
         try {
             const createUser = await db.$transaction(async (db) => {
 
@@ -50,7 +50,7 @@ export default class userConroller {
                 const userId = newUser.id;
                 const promisses = [
                     role === 'professor'
-                        ? await createProfessor(userId, password)
+                        ? await createProfessor(userId, password!)
                         : await createAluno(userId, turmaId),
                     //create a phone and connect with user
                     (user.telefone) && await createTelefone(userId, user.telefone),
