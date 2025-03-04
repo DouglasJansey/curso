@@ -48,6 +48,7 @@ export default class userConroller {
                 })
                 //catch the id of the user created and connect with the other tables
                 const userId = newUser.id;
+                
                 const promisses = [
                     role === 'professor'
                         ? await createProfessor(userId, password!)

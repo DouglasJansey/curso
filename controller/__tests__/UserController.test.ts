@@ -28,7 +28,6 @@ const dbMock = db as jest.Mocked<typeof db>;
 
 describe("UserController - createUser", () => {
   const userController = new UserController();
-  console.log("createAluno mock:", createAluno);
   beforeEach(() => {
     jest.clearAllMocks();
     dbMock.$transaction.mockImplementation(async (callback : any) => {
